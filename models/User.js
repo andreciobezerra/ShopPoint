@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please add an email"],
     match: [
+      // eslint-disable-next-line no-useless-escape
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       "Please add a valid email",
     ],
@@ -76,10 +77,7 @@ UserSchema.methods.getResetPasswordToken = function () {
 
   //hash the resetToken and set it to this.resetPasswordToken
 
-  this.resetPasswordToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+  this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
 
   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
 

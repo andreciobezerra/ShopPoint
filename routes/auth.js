@@ -7,6 +7,7 @@ const {
   resetPassword,
   verificationEmail,
 } = require("../controller/auth");
+
 const { protect } = require("../middleware/auth");
 
 const router = require("express").Router();
