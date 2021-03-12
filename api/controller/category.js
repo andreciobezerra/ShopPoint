@@ -1,5 +1,5 @@
 const asyncHandler = require("../middleware/async");
-const createError = require("../utilis/createError");
+const createError = require("../utils/createError");
 const Category = require("../models/Category");
 
 const getCategories = asyncHandler(async (req, res, next) => {

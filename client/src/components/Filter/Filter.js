@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Filtetr({
+function Filter({
   setCategory,
   sort,
   handleSort,
@@ -178,4 +178,4 @@ function Filtetr({
     </div>
   );
 }
-export default Filtetr;
+export default Filter;

@@ -16,7 +16,7 @@ import {
   makeStyles,
 } from "@material-ui/core/";
 import { Link, Redirect } from "react-router-dom";
-import confirmationImg from "../assests/confirmation.png";
+import confirmationImg from "../assets/confirmation.png";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css";
 

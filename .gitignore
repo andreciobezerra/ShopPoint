@@ -1,5 +1,4 @@
-node_modules/
-client/build/
-data/reviews.json
-data/users.json
-config/config.env
+.idea
+/api/node_modules/*
+/client/node_modules/*
+user-ms/node_modules/*
