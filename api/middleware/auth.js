@@ -1,6 +1,6 @@
-const createError = require("../utilis/createError");
-const verifyToken = require("../utilis/jwt");
-const asyncHandler = require("../middleware/async");
+const createError = require("../utils/createError");
+const verifyToken = require("../utils/jwt");
+const asyncHandler = require("./async");
 const User = require("../models/User");
 
 const protect = asyncHandler(async (req, res, next) => {

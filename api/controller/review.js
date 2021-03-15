@@ -1,5 +1,5 @@
 const asyncHandler = require("../middleware/async");
-const createError = require("../utilis/createError");
+const createError = require("../utils/createError");
 const Review = require("../models/Review");
 const Product = require("../models/Product");
 
