@@ -2,12 +2,14 @@ require("dotenv").config({ path: "src/.env" });
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const morgan = require("morgan")
 const { unknownEndpoints, errorHandler } = require("./middlewares/error");
 const connectDb = require("./config/db");
 const app = express();
 
 connectDb();
 app.use(express.json());
+app.use(morgan("dev"))
 
 //routes
 const authRouter = require("./routes/auth");

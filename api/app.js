@@ -1,14 +1,14 @@
 require("colors");
+require("dotenv").config()
 const express = require("express");
-const dotenv = require("dotenv");
 const path = require("path");
 const cors = require("cors");
+const morgan = require("morgan")
 const fileUpload = require("express-fileupload");
 const { unknownEndpoints, errorHandler } = require("./middleware/error");
 const connectDb = require("./config/db");
 const app = express();
 
-dotenv.config();
 
 connectDb();
 
@@ -21,6 +21,7 @@ const orderRouter = require("./routes/order");
 const categoryRouter = require("./routes/category");
 
 app.use(express.json());
+app.use(morgan("dev"))
 
 app.use(
   fileUpload({
