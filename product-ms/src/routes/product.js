@@ -5,8 +5,6 @@ const {
   updateProduct,
   deleteProduct,
 } = require("../controller/product");
-const proxy = require("express-http-proxy");
-
 
 //Invoked middleware.
 const advanceResults = require("../middleware/advanceResults");
@@ -30,9 +28,7 @@ router
     getProducts
   )
   .post(protect, permission("admin"), createProduct);
-
 router.use("/:productId/reviews", reviewRouter);
-
 router
   .route("/:productId")
   .get(getProduct)

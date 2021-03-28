@@ -2,3 +2,4 @@
 /api/node_modules/*
 /client/node_modules/*
 user-ms/node_modules/*
+product-ms/node_modules/*
