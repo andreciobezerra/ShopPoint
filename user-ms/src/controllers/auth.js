@@ -2,7 +2,6 @@ const crypto = require("crypto");
 const cron = require("node-cron");
 const createError = require("../utils/createError");
 const asyncHandler = require("../middlewares/async");
-const verifyEmail = require("../utils/verifyEmail");
 const sendEmail = require("../utils/sendEmail");
 const User = require("../models/User");
 
@@ -25,7 +24,7 @@ const RegisterUser = asyncHandler(async (req, res, next) => {
       name: newUser.name,
     };
 
-    await verifyEmail(options);
+    //await verifyEmail(options);
 
     var job = cron.schedule(
       "59 * * * *",
@@ -56,7 +55,7 @@ const RegisterUser = asyncHandler(async (req, res, next) => {
 
     res.status(200).send({
       status: "success",
-      message: "Verification Code sent to your email.",
+      message: "user created with sucess",
     });
   } catch (error) {
     throw createError(500, "Verification email cound't be sent");
@@ -68,7 +67,6 @@ const RegisterUser = asyncHandler(async (req, res, next) => {
 const login = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({
     email: req.body.email,
-    verify: true,
   }).select("+password");
   if (!user) throw createError(401, `Email doesn't match`);
 
@@ -191,6 +189,7 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 });
 
 const sendTokenResponse = (user, statusCode, res) => {
+  console.log(user);
   const token = user.genAuthToken();
 
   const userData = {
@@ -198,7 +197,6 @@ const sendTokenResponse = (user, statusCode, res) => {
     name: user.name,
     email: user.email,
     role: user.role,
-    verify: user.verify,
   };
 
   res.status(statusCode).send({ status: "success", token, authData: userData });
