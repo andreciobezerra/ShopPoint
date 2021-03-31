@@ -10,7 +10,7 @@ export const auth = (email, password) => async (dispatch) => {
       password,
     };
 
-    await axios.post(`/api/v1/auth/login`, authData).then((resp) => {
+    await axios.post(`${process.env.REACT_APP_HOST}/api/v1/auth/login`, authData).then((resp) => {
       const authData = resp.data.authData;
       const token = resp.data.token;
 
@@ -51,7 +51,7 @@ export const Register = (name, email, password) => async (dispatch) => {
       password,
     };
 
-    await axios.post(`/api/v1/auth/register`, registerData).then((resp) => {
+    await axios.post(`${process.env.REACT_APP_HOST}/api/v1/auth/register`, registerData).then((resp) => {
       const consfirmMessage = resp.data.message;
 
       dispatch({
@@ -78,7 +78,7 @@ export const emailVerification = (verificationCode) => async (dispatch) => {
       verificationCode,
     };
 
-    await axios.post(`/api/v1/auth/verifyEmail`, code).then((resp) => {
+    await axios.post(`${process.env.REACT_APP_HOST}/api/v1/auth/verifyEmail`, code).then((resp) => {
       const authData = resp.data.authData;
       const token = resp.data.token;
 
@@ -120,7 +120,7 @@ export const userList = (initialLoading) => async (dispatch, getState) => {
       },
     };
 
-    await axios.get(`/api/v1/user`, config).then((resp) => {
+    await axios.get(`${process.env.REACT_APP_HOST}/api/v1/user`, config).then((resp) => {
       const userList = resp.data.data.results;
       const totalUser = resp.data.data.count;
       dispatch({
@@ -156,7 +156,7 @@ export const userDelete = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/v1/user/${id}`, config).then((resp) => {
+    await axios.delete(`${process.env.REACT_APP_HOST}/api/v1/user/${id}`, config).then((resp) => {
       dispatch({
         type: userConstants.USER_DELETE_SUCCESS,
       });
@@ -186,7 +186,7 @@ export const userUpdate = (id, updatedData) => async (dispatch, getState) => {
       },
     };
 
-    await axios.put(`/api/v1/user/${id}`, updatedData, config).then((resp) => {
+    await axios.put(`${process.env.REACT_APP_HOST}/api/v1/user/${id}`, updatedData, config).then((resp) => {
       dispatch({
         type: userConstants.USER_EDIT_SUCCESS,
       });
@@ -216,7 +216,7 @@ export const getUser = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.get(`/api/v1/user/${id}`, config).then((resp) => {
+    await axios.get(`${process.env.REACT_APP_HOST}/api/v1/user/${id}`, config).then((resp) => {
       const userDetails = resp.data.data;
       dispatch({
         type: userConstants.USER_FETCH_SUCCESS,
@@ -238,7 +238,7 @@ export const forgotPassword = (email) => async (dispatch) => {
   try {
     dispatch({ type: userConstants.FORGOT_PASSWORD_SEND_START });
 
-    await axios.post(`/api/v1/auth/forgotPassword`, email).then((resp) => {
+    await axios.post(`${process.env.REACT_APP_HOST}/api/v1/auth/forgotPassword`, email).then((resp) => {
       const confirmMessage = resp.data.message;
       dispatch({
         type: userConstants.FORGOT_PASSWORD_SEND_SUCCESS,
@@ -261,7 +261,7 @@ export const resetPassword = (resetPasswordData) => async (dispatch) => {
     dispatch({ type: userConstants.RESET_PASSWORD_START });
 
     await axios
-      .post(`/api/v1/auth/resetPassword`, resetPasswordData)
+      .post(`${process.env.REACT_APP_HOST}/api/v1/auth/resetPassword`, resetPasswordData)
       .then((resp) => {
         const confirmMessage = resp.data.message;
         dispatch({

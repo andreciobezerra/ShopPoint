@@ -189,7 +189,6 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 });
 
 const sendTokenResponse = (user, statusCode, res) => {
-  console.log(user);
   const token = user.genAuthToken();
 
   const userData = {

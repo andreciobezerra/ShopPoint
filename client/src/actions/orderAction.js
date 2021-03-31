@@ -1,6 +1,6 @@
 import axios from "axios";
-import * as orderConstants from "../constants/orderConstants";
 import * as cartConstants from "../constants/cartConstants";
+import * as orderConstants from "../constants/orderConstants";
 
 export const createOrder = (orderData) => async (dispatch, getState) => {
   try {
@@ -16,7 +16,7 @@ export const createOrder = (orderData) => async (dispatch, getState) => {
       },
     };
 
-    await axios.post("/api/v1/order/", orderData, config).then((resp) => {
+    await axios.post(`${process.env.REACT_APP_HOST}/api/v1/order/`, orderData, config).then((resp) => {
       const data = resp.data.data;
 
       dispatch({
@@ -61,7 +61,7 @@ export const getOrder = (orderId, initialLoading) => async (
       },
     };
 
-    await axios.get(`/api/v1/order/${orderId}`, config).then((resp) => {
+    await axios.get(`${process.env.REACT_APP_HOST}/api/v1/order/${orderId}`, config).then((resp) => {
       const data = resp.data.data;
 
       dispatch({
@@ -100,7 +100,7 @@ export const payOrder = (orderId, paymentResult) => async (
     };
 
     await axios
-      .post(`/api/v1/order/${orderId}/pay`, paymentResult, config)
+      .post(`${process.env.REACT_APP_HOST}/api/v1/order/${orderId}/pay`, paymentResult, config)
       .then((resp) => {
         const message = resp.data.message;
 
@@ -137,7 +137,7 @@ export const deliverOrder = (orderId) => async (dispatch, getState) => {
     };
 
     await axios
-      .post(`/api/v1/order/${orderId}/deliver`, {}, config)
+      .post(`${process.env.REACT_APP_HOST}/api/v1/order/${orderId}/deliver`, {}, config)
       .then((resp) => {
         const data = resp.data.data;
 
@@ -173,7 +173,7 @@ export const authOrder = () => async (dispatch, getState) => {
       },
     };
 
-    await axios.get(`/api/v1/order/authOrders`, config).then((resp) => {
+    await axios.get(`${process.env.REACT_APP_HOST}/api/v1/order/authOrders`, config).then((resp) => {
       const data = resp.data.data;
       const count = resp.data.count;
 
@@ -210,7 +210,7 @@ export const listOrders = () => async (dispatch, getState) => {
       },
     };
 
-    await axios.get(`/api/v1/order/`, config).then((resp) => {
+    await axios.get(`${process.env.REACT_APP_HOST}/api/v1/order/`, config).then((resp) => {
       const data = resp.data.results;
       const totalOrders = resp.data.count;
 
