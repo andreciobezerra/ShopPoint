@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Image, ListGroup, Card } from "react-bootstrap";
-import * as productAction from "../actions/productAction";
-import ErrorMessage from "../components/Message/errorMessage";
-import ProductReview from "../components/ProductReview/ProductReview";
-import Rating from "../components/Rating/Rating";
 import {
-  Select,
   Button,
   FormControl,
   makeStyles,
-  MenuItem,
+  MenuItem, Select
 } from "@material-ui/core/";
-import * as productConstants from "../constants/productConstants";
-import SinglePageLoader from "../components/Loader/SinglePageLoader";
+import React, { useEffect, useState } from "react";
+import { Card, Col, Image, ListGroup, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { addToCart } from "../actions/cartAction";
+import * as productAction from "../actions/productAction";
+import SinglePageLoader from "../components/Loader/SinglePageLoader";
+import ErrorMessage from "../components/Message/errorMessage";
+import ProductReview from "../components/ProductReview/ProductReview";
+import Rating from "../components/Rating/Rating";
+import * as productConstants from "../constants/productConstants";
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -77,7 +76,7 @@ const ProductDetails = ({ match, history }) => {
         <>
           <Row>
             <Col md={6}>
-              <Image src={product.productImage} alt={product.name} fluid />
+              <Image src={`/${product.productImage}`} alt={product.name} fluid />
             </Col>
             <Col md={3}>
               <ListGroup variant="flush">
@@ -87,9 +86,8 @@ const ProductDetails = ({ match, history }) => {
                 <ListGroup.Item>
                   <Rating
                     value={product.averageRating}
-                    text={`${
-                      product.Reviews ? product.Reviews.length : 0
-                    } reviews`}
+                    text={`${product.Reviews ? product.Reviews.length : 0
+                      } reviews`}
                   />
                 </ListGroup.Item>
                 <ListGroup.Item>Price: ${product.price}</ListGroup.Item>

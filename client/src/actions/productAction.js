@@ -23,7 +23,7 @@ export const listProducts = (productInfo) => async (dispatch) => {
       priceRange !== "" ? `&price[${ltORgt}]=${Number(priceRange)}` : "",
     ];
 
-    await axios.get(`/api/v1/product/?${queryString.join("")}`).then((resp) => {
+    await axios.get(`${process.env.REACT_APP_HOST}/api/v1/product/?${queryString.join("")}`).then((resp) => {
       const productList = resp.data.data.results;
       const totalProduct = resp.data.data.count;
 
@@ -49,7 +49,7 @@ export const listProductsForAdmin = (initialLoading) => async (dispatch) => {
       dispatch({ type: productConstants.PRODUCTLIST_FETCH_START });
     }
 
-    await axios.get(`/api/v1/product/`).then((resp) => {
+    await axios.get(`${process.env.REACT_APP_HOST}/api/v1/product/`).then((resp) => {
       const productList = resp.data.data.results;
       const totalProduct = resp.data.data.count;
 
@@ -73,7 +73,7 @@ export const product = (id) => async (dispatch) => {
   try {
     dispatch({ type: productConstants.PRODUCT_FETCH_START });
 
-    await axios.get(`/api/v1/product/${id}`).then((resp) => {
+    await axios.get(`${process.env.REACT_APP_HOST}/api/v1/product/${id}`).then((resp) => {
       const product = resp.data.data;
 
       dispatch({
@@ -97,7 +97,7 @@ export const productReview = (id, initialLoading) => async (dispatch) => {
     if (initialLoading) {
       dispatch({ type: productConstants.PRODUCTREVIEW_FETCH_START });
     }
-    await axios.get(`/api/v1/product/${id}/reviews`).then((resp) => {
+    await axios.get(`${process.env.REACT_APP_HOST}/api/v1/product/${id}/reviews`).then((resp) => {
       const productReviews = resp.data.data;
       const totalReview = resp.data.count;
 
@@ -143,7 +143,7 @@ export const createReview = (id, title, text, rating) => async (
       rating,
     };
     await axios
-      .post(`/api/v1/product/${id}/reviews`, data, config)
+      .post(`${process.env.REACT_APP_HOST}/api/v1/product/${id}/reviews`, data, config)
       .then((resp) => {
         dispatch({
           type: productConstants.CREATE_REVIEW_SUCCESS,
@@ -174,7 +174,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/v1/product/${id}`, config).then((resp) => {
+    await axios.delete(`${process.env.REACT_APP_HOST}/api/v1/product/${id}`, config).then((resp) => {
       dispatch({
         type: productConstants.DELETE_PRODUCT_SUCCESS,
       });
@@ -204,7 +204,7 @@ export const createProduct = (formData) => async (dispatch, getState) => {
       },
     };
 
-    await axios.post("/api/v1/product/", formData, config).then((resp) => {
+    await axios.post(`${process.env.REACT_APP_HOST}/api/v1/product/`, formData, config).then((resp) => {
       dispatch({
         type: productConstants.CREATE_PRODUCT_SUCCESS,
       });
@@ -235,7 +235,7 @@ export const EditProduct = (id, UpdatedData) => async (dispatch, getState) => {
     };
 
     await axios
-      .put(`/api/v1/product/${id}`, UpdatedData, config)
+      .put(`${process.env.REACT_APP_HOST}/api/v1/product/${id}`, UpdatedData, config)
       .then((resp) => {
         dispatch({
           type: productConstants.EDIT_PRODUCT_SUCCESS,

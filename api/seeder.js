@@ -15,7 +15,7 @@ const Order = require("./models/Order");
 
 // Connect to DB
 
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect("mongodb://localhost:27017/shopPoint", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -24,25 +24,25 @@ mongoose.connect(process.env.MONGO_URI, {
 
 //Read JSON files
 
-const users = JSON.parse(
+/*const users = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/users.json`, "utf-8")
-);
+);*/
 
 const products = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/product.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/data/product.json`, "utf-8")
 );
 const categories = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/category.json`, "utf-8")
+  fs.readFileSync(`${__dirname}/data/category.json`, "utf-8")
 );
-const reviews = JSON.parse(
+/* const reviews = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/reviews.json`, "utf-8")
 );
-
+ */
 //Import into DB
 
 const importData = async () => {
   try {
-    await User.create(users);
+    //await User.create(users);
     await Product.create(products);
     await Category.create(categories);
     //await Review.create(reviews);

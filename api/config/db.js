@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 async function connectDB() {
   const dbUris = new Map([["development", process.env.DB_DEV]]);
   const uri = dbUris.get(process.env.NODE_ENV);
-  console.log(uri, "aqui", process.env.NODE_ENV);
+
   const conn = await mongoose.connect(dbUris.get(process.env.NODE_ENV), {
     useNewUrlParser: true,
     useCreateIndex: true,
