@@ -1,42 +1,20 @@
-const {
-  getProducts,
-  getProduct,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} = require("../controller/product");
 const proxy = require("express-http-proxy");
-
-
-//Invoked middleware.
-const advanceResults = require("../middleware/advanceResults");
-const { protect, permission } = require("../middleware/auth");
-
-//Product model
-const Product = require("../models/Product");
+const router = require("express").Router();
 
 //Include other resource Router
 const reviewRouter = require("./review");
 
-const router = require("express").Router();
-
 router
   .route("/")
-  .get(
-    advanceResults(Product, {
-      path: "Reviews",
-      select: "title",
-    }),
-    getProducts
-  )
-  .post(protect, permission("admin"), createProduct);
+  .get(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/product/" }))
+  .post(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/product/" }));
 
 router.use("/:productId/reviews", reviewRouter);
 
 router
   .route("/:productId")
-  .get(getProduct)
-  .put(protect, permission("admin"), updateProduct)
-  .delete(protect, permission("admin"), deleteProduct);
+  .get(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/product/:productId" }))
+  .put(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/product/:productId" }))
+  .delete(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/product/:productId" }));
 
 module.exports = router;

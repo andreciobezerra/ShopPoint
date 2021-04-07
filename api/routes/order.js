@@ -1,43 +1,27 @@
-const {
-  getOrders,
-  authOrder,
-  getOrder,
-  createOrder,
-  updateOrder,
-  deleteOrder,
-  payment,
-  deliverOrder,
-} = require("../controller/order");
-
-//Invoked middleware.
-const advanceResults = require("../middleware/advanceResults");
-const { protect } = require("../middleware/auth");
-
-//Product model
-const Order = require("../models/Order");
-
+const proxy = require("express-http-proxy");
 const router = require("express").Router();
-
-router.use(protect);
-const { permission } = require("../middleware/auth");
 
 router
   .route("/")
-  .get(
-    permission("admin"),
-    advanceResults(Order, {
-      path: "userId",
-      select: "name email",
-    }),
+  .get(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/order" }))
+  .post(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/order" }));
 
-    getOrders
-  )
-  .post(createOrder);
-router.route("/authOrders").get(authOrder);
+router
+  .route("/authOrders")
+  .get(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/order/authOrders" }));
 
-router.route("/:orderId").get(getOrder).put(updateOrder).delete(deleteOrder);
+router
+  .route("/:orderId")
+  .get(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/order/:orderId" }))
+  .put(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/order/:orderId" }))
+  .delete(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/order/:orderId" }));
 
-router.route("/:orderId/pay").post(payment);
-router.route("/:orderId/deliver").post(deliverOrder);
+router
+  .route("/:orderId/pay")
+  .post(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/order/:orderId/pay" }));
+
+router
+  .route("/:orderId/deliver")
+  .post(proxy(process.env.PRODUCT_MS_HOST, { proxyReqPathResolver: (req) => "/api/order/deliver" }));
 
 module.exports = router;

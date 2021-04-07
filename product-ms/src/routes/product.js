@@ -14,7 +14,7 @@ const { protect, permission } = require("../middleware/auth");
 const Product = require("../models/Product");
 
 //Include other resource Router
-const reviewRouter = require("./review");
+//const reviewRouter = require("./review");
 
 const router = require("express").Router();
 
@@ -28,7 +28,9 @@ router
     getProducts
   )
   .post(protect, permission("admin"), createProduct);
-router.use("/:productId/reviews", reviewRouter);
+
+//router.use("/:productId/reviews", reviewRouter);
+
 router
   .route("/:productId")
   .get(getProduct)
